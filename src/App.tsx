@@ -1,15 +1,17 @@
-import { Link, Route, Routes } from 'react-router';
+import { NavLink, Route, Routes } from 'react-router';
 import About from './pages/About';
 import Home from './pages/Home';
 import './styles/App.css';
 
 export default function App() {
   return (
-    <>
+    <div className="App__container">
       <header>
-        <nav>
-          <Link to="/">Home</Link>
-          <Link to="/About">About</Link>
+        <nav className="App__nav">
+          <ul>
+            <li><NavLink to="/">Home</NavLink></li>
+            <li><NavLink to="/About">About</NavLink></li>
+          </ul>
         </nav>
       </header>
       <main>
@@ -18,6 +20,6 @@ export default function App() {
           <Route path="/About" element={<About />} />
         </Routes>
       </main>
-    </>
+    </div>
   );
 }

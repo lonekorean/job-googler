@@ -1,2 +1,19 @@
 :root {
+  --color-foreground: #212529;
+  --color-background: #f8f9fa;
+  --color-shade: #e9ecef;
+  --color-dark: #495057;
+  --color-primary: #c2255c;
+}
+
+body {
+  margin: 0;
+  padding: 40px 20px;
+  font: 1rem/1.4 sans-serif;
+}
+
+a {
+  color: var(--color-primary);
+  font-weight: bold;
+  text-decoration: none;
 }

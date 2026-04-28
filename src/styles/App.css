@@ -1,0 +1,31 @@
+.App__container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.App__nav {
+  ul {
+    display: flex;
+    gap: 10px;
+    width: fit-content;
+    margin: 0;
+    padding: 5px;
+    list-style: none;
+    background-color: var(--color-shade);
+    border-radius: calc(infinity * 1px);
+  }
+
+  li {
+  }
+
+  a {
+    display: block;
+    padding: 5px 40px;
+    border-radius: calc(infinity * 1px);
+
+    &[aria-current] {
+      color: var(--color-background);
+      background-color: var(--color-dark);
+    }
+  }
+}
