@@ -1,6 +1,17 @@
 import '../styles/pages/Search.css';
+import formData from '../data/form.json';
+import { useState } from 'react';
 
 export default function Home() {
+  const [titleTerms, setTitleTerms] = useState(formData['default-title-terms']);
+
+  const titleTermInputs = titleTerms.map((titleTerm) => (
+    <div className="Search__input-wrapper">
+      <input type="text" value={titleTerm} />
+      <button className="Search__input-remove">×</button>
+    </div>
+  ));
+
   return (
     <>
       <h1>Search</h1>
@@ -8,7 +19,10 @@ export default function Home() {
       <form className="Search__form">
         <fieldset>
           <legend>In Page Title:</legend>
-          <input type="text" value="design engineer" />
+          <div className="Search__input-grid">
+            {titleTermInputs}
+            <button className="Search__input-add">+</button>
+          </div>
         </fieldset>
 
         <fieldset>
@@ -44,7 +58,7 @@ export default function Home() {
           </div>
         </fieldset>
 
-        <button type="submit">Open Google Search!</button>
+        <button type="submit" className="Search__submit">Open Google Search!</button>
       </form>
     </>
   );

@@ -6,6 +6,10 @@
   --color-primary: #c2255c;
 }
 
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
   padding: 40px 20px;
