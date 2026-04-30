@@ -1,6 +1,6 @@
 import { NavLink, Route, Routes } from 'react-router';
 import About from './pages/About';
-import Home from './pages/Home';
+import Search from './pages/Search';
 import './styles/App.css';
 
 export default function App() {
@@ -9,14 +9,14 @@ export default function App() {
       <header>
         <nav className="App__nav">
           <ul>
-            <li><NavLink to="/">Home</NavLink></li>
+            <li><NavLink to="/">Search</NavLink></li>
             <li><NavLink to="/About">About</NavLink></li>
           </ul>
         </nav>
       </header>
       <main>
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<Search />} />
           <Route path="/About" element={<About />} />
         </Routes>
       </main>
