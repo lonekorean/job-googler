@@ -3,9 +3,13 @@ import formData from '../data/form.json';
 import { useState } from 'react';
 import MultiTermInput from '../inputs/MultiTerm';
 
+function loadTerms(dataName) {
+  return formData[dataName].map((value) => ({ id: crypto.randomUUID(), value }));
+}
+
 export default function Home() {
-  const [titleTerms, setTitleTerms] = useState(formData['default-title-terms']);
-  const [bodyTerms, setBodyTerms] = useState(formData['default-body-terms']);
+  const [titleTerms, setTitleTerms] = useState(() => loadTerms('default-title-terms'));
+  const [bodyTerms, setBodyTerms] = useState(() => loadTerms('default-body-terms'));
 
   return (
     <>
@@ -13,7 +17,6 @@ export default function Home() {
 
       <form className="Search__form">
         <MultiTermInput title="In Page Title" terms={titleTerms} setTerms={setTitleTerms} />
-
         <MultiTermInput title="In Page Body" terms={bodyTerms} setTerms={setBodyTerms} />
 
         <fieldset>

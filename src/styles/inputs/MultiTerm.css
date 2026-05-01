@@ -1,6 +1,5 @@
 .MultiTerm__grid {
-  /* auto-fit didn't give me exactly what I wanted, so controlling columns with container queries instead */
-  --columns: 1;
+  --columns: 1; /* auto-fit wasn't sufficient */
 
   display: grid;
   grid-template-columns: repeat(var(--columns), 1fr);

@@ -3,10 +3,25 @@ import removeIcon from '../assets/icons/remove.svg';
 import '../styles/inputs/MultiTerm.css';
 
 export default function MultiTerm({ title, terms, setTerms }) {
-  const fields = terms.map((term) => (
-    <div className="MultiTerm__field">
-      <input type="text" value={term} />
-      <button className="MultiTerm__remove">
+  function handleChange(id, value) {
+    const newTerms = terms.map((term) => (term.id === id ? { ...term, value } : term));
+    setTerms(newTerms);
+  }
+
+  function handleRemove(id) {
+    const newTerms = terms.filter((term) => term.id !== id);
+    setTerms(newTerms);
+  }
+
+  function handleAdd() {
+    const newTerms = [...terms, { id: crypto.randomUUID(), value: '' }];
+    setTerms(newTerms);
+  }
+
+  const fields = terms.map(({ id, value }) => (
+    <div key={id} className="MultiTerm__field">
+      <input type="text" value={value} onChange={(e) => handleChange(id, e.target.value)} />
+      <button type="button" className="MultiTerm__remove" onClick={() => handleRemove(id)}>
         <img src={removeIcon} alt="remove" />
       </button>
     </div>
@@ -17,7 +32,7 @@ export default function MultiTerm({ title, terms, setTerms }) {
       <legend>{title}:</legend>
       <div className="MultiTerm__grid">
         {fields}
-        <button className="MultiTerm__add">
+        <button type="button" className="MultiTerm__add" onClick={() => handleAdd()}>
           <img src={addIcon} alt="add" />
         </button>
       </div>
