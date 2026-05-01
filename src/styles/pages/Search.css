@@ -6,28 +6,9 @@
   }
 
   legend {
-    font-weight: bold;
     margin-bottom: 5px;
+    font-weight: bold;
   }
-
-  input {
-    &[type="text"] {
-      padding: 10px;
-      width: 100%;
-      border: 1px solid var(--color-dark);
-      border-radius: 5px;
-      background-color: transparent;
-      font-size: inherit;
-      font-family: monospace;
-    }
-  }
-}
-
-.Search__input-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  align-content: center;
-  gap: 15px;
 }
 
 .Search__field-pair {
@@ -36,45 +17,7 @@
   }
 }
 
-.Search__input-wrapper {
-  position: relative;
-}
-
-.Search__input-remove {
-  position: absolute;
-  height: 20px;
-  aspect-ratio: 1;
-  top: 0;
-  right: 0;
-  margin: -10px -10px 0 0;
-  border-radius: 100%;
-  font-size: 0.75rem;
-  display: none;
-}
-
-.Search__input-wrapper:hover .Search__input-remove {
-  display: block;
-}
-
-.Search__input-add {
-  justify-self: flex-start;
-  align-self: center;
-  padding: 5px;
-  border-radius: 100%;
-  width: 30px;
-  height: 30px;
-}
-
 .Search__submit {
   padding: 10px 20px;
   border-radius: calc(infinity * 1px);
-}
-
-button {
-  border: none;
-  font-size: inherit;
-  font-family: inherit;
-  color: var(--color-background);
-  background-color: var(--color-primary);
-  cursor: pointer;
 }

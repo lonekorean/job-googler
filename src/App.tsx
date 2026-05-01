@@ -1,6 +1,6 @@
 import { NavLink, Route, Routes } from 'react-router';
-import About from './pages/About';
-import Search from './pages/Search';
+import AboutPage from './pages/About';
+import SearchPage from './pages/Search';
 import './styles/App.css';
 
 export default function App() {
@@ -16,8 +16,8 @@ export default function App() {
       </header>
       <main>
         <Routes>
-          <Route path="/" element={<Search />} />
-          <Route path="/About" element={<About />} />
+          <Route path="/" element={<SearchPage />} />
+          <Route path="/About" element={<AboutPage />} />
         </Routes>
       </main>
     </div>

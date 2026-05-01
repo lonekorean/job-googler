@@ -1,6 +1,7 @@
 .App__container {
   max-width: 1000px;
   margin: 0 auto;
+  container-type: inline-size;
 }
 
 .App__nav {

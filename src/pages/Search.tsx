@@ -1,34 +1,20 @@
 import '../styles/pages/Search.css';
 import formData from '../data/form.json';
 import { useState } from 'react';
+import MultiTermInput from '../inputs/MultiTerm';
 
 export default function Home() {
   const [titleTerms, setTitleTerms] = useState(formData['default-title-terms']);
-
-  const titleTermInputs = titleTerms.map((titleTerm) => (
-    <div className="Search__input-wrapper">
-      <input type="text" value={titleTerm} />
-      <button className="Search__input-remove">×</button>
-    </div>
-  ));
+  const [bodyTerms, setBodyTerms] = useState(formData['default-body-terms']);
 
   return (
     <>
       <h1>Search</h1>
 
       <form className="Search__form">
-        <fieldset>
-          <legend>In Page Title:</legend>
-          <div className="Search__input-grid">
-            {titleTermInputs}
-            <button className="Search__input-add">+</button>
-          </div>
-        </fieldset>
+        <MultiTermInput title="In Page Title" terms={titleTerms} setTerms={setTitleTerms} />
 
-        <fieldset>
-          <legend>In Page Body:</legend>
-          <input type="text" value="remote" />
-        </fieldset>
+        <MultiTermInput title="In Page Body" terms={bodyTerms} setTerms={setBodyTerms} />
 
         <fieldset>
           <legend>On These Job Boards:</legend>

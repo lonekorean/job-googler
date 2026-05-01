@@ -21,3 +21,12 @@ a {
   font-weight: bold;
   text-decoration: none;
 }
+
+button {
+  border: none;
+  color: var(--color-background);
+  background-color: var(--color-primary);
+  font-size: inherit;
+  font-family: inherit;
+  cursor: pointer;
+}
