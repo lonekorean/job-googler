@@ -1,4 +1,4 @@
-export const defaultTitleTerms = [
+export const titleTerms = [
   'frontend',
   'front-end',
   'design engineer',
@@ -6,25 +6,25 @@ export const defaultTitleTerms = [
   'ux engineer'
 ];
 
-export const defaultBodyTerms = ['remote'];
+export const bodyTerms = ['remote'];
 
 export const jobBoards = [
-  { name: 'Greenhouse', domain: 'job-boards.greenhouse.io' },
-  { name: 'Ashby', domain: 'jobs.ashbyhq.com' },
-  { name: 'SmartRecruiters', domain: 'jobs.smartrecruiters.com' },
-  { name: 'Lever', domain: 'jobs.lever.co' },
-  { name: 'Workday', domain: 'myworkdayjobs.com' },
-  { name: 'BambooHR', domain: 'bamboohr.com' },
-  { name: 'Jobvite', domain: 'jobs.jobvite.com' },
-  { name: 'JazzHR', domain: 'applytojob.com' },
-  { name: 'Breezy HR', domain: 'breezy.hr' },
-  { name: 'ICIMS', domain: 'icims.com' },
-  { name: 'Workable', domain: 'apply.workable.com' }
+  { name: 'Greenhouse', value: 'job-boards.greenhouse.io', selected: true },
+  { name: 'Ashby', value: 'jobs.ashbyhq.com', selected: true },
+  { name: 'SmartRecruiters', value: 'jobs.smartrecruiters.com', selected: true },
+  { name: 'Lever', value: 'jobs.lever.co', selected: true },
+  { name: 'Workday', value: 'myworkdayjobs.com', selected: true },
+  { name: 'BambooHR', value: 'bamboohr.com', selected: true },
+  { name: 'Jobvite', value: 'jobs.jobvite.com', selected: true },
+  { name: 'JazzHR', value: 'applytojob.com', selected: true },
+  { name: 'Breezy HR', value: 'breezy.hr', selected: true },
+  { name: 'ICIMS', value: 'icims.com', selected: true },
+  { name: 'Workable', value: 'apply.workable.com', selected: true }
 ];
 
-export const timeRange = [
-  { unit: 'Hour', value: 'h' },
-  { unit: 'Day', value: 'd' },
-  { unit: 'Week', value: 'w' },
-  { unit: 'Month', value: 'm' }
+export const timeRanges = [
+  { name: 'Hour', value: 'h' },
+  { name: 'Day', value: 'd', selected: true },
+  { name: 'Week', value: 'w' },
+  { name: 'Month', value: 'm' }
 ];

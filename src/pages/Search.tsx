@@ -1,16 +1,18 @@
 import { useState } from 'react';
-import { defaultBodyTerms, defaultTitleTerms } from '../config';
+import * as config from '../config';
 import MultiTermInput from '../inputs/MultiTerm';
+import MultiSelectInput from '../inputs/MultiSelect';
 import '../styles/pages/Search.css';
-import type { Term } from '../types';
+import type { Selection, Term } from '../types';
 
-function loadDefaultTerms(values: string[]): Term[] {
+function loadMultiTerms(values: string[]): Term[] {
   return values.map((value) => ({ id: crypto.randomUUID(), value }));
 }
 
 export default function Search() {
-  const [titleTerms, setTitleTerms] = useState<Term[]>(() => loadDefaultTerms(defaultTitleTerms));
-  const [bodyTerms, setBodyTerms] = useState<Term[]>(() => loadDefaultTerms(defaultBodyTerms));
+  const [titleTerms, setTitleTerms] = useState<Term[]>(() => loadMultiTerms(config.titleTerms));
+  const [bodyTerms, setBodyTerms] = useState<Term[]>(() => loadMultiTerms(config.bodyTerms));
+  const [jobBoards, setJobBoards] = useState<Selection[]>(() => config.jobBoards);
 
   return (
     <>
@@ -19,14 +21,7 @@ export default function Search() {
       <form className="Search__form">
         <MultiTermInput title="In Page Title" terms={titleTerms} setTerms={setTitleTerms} />
         <MultiTermInput title="In Page Body" terms={bodyTerms} setTerms={setBodyTerms} />
-
-        <fieldset>
-          <legend>On These Job Boards:</legend>
-          <div className="Search__field-pair">
-            <input type="checkbox" id="board-greenhouse" />
-            <label htmlFor="board-greenhouse">job-boards.greenhouse.io</label>
-          </div>
-        </fieldset>
+        <MultiSelectInput title="On These Job Boards" selections={jobBoards} setSelections={setJobBoards} />
 
         <fieldset>
           <legend>Within The Last:</legend>

@@ -11,12 +11,6 @@
   }
 }
 
-.Search__field-pair {
-  label {
-    padding-left: 10px;
-  }
-}
-
 .Search__submit {
   padding: 10px 20px;
   border-radius: calc(infinity * 1px);
