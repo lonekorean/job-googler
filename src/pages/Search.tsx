@@ -1,15 +1,16 @@
-import '../styles/pages/Search.css';
-import formData from '../data/form.json';
 import { useState } from 'react';
+import { defaultBodyTerms, defaultTitleTerms } from '../config';
 import MultiTermInput from '../inputs/MultiTerm';
+import '../styles/pages/Search.css';
+import type { Term } from '../types';
 
-function loadTerms(dataName) {
-  return formData[dataName].map((value) => ({ id: crypto.randomUUID(), value }));
+function loadDefaultTerms(values: string[]): Term[] {
+  return values.map((value) => ({ id: crypto.randomUUID(), value }));
 }
 
-export default function Home() {
-  const [titleTerms, setTitleTerms] = useState(() => loadTerms('default-title-terms'));
-  const [bodyTerms, setBodyTerms] = useState(() => loadTerms('default-body-terms'));
+export default function Search() {
+  const [titleTerms, setTitleTerms] = useState<Term[]>(() => loadDefaultTerms(defaultTitleTerms));
+  const [bodyTerms, setBodyTerms] = useState<Term[]>(() => loadDefaultTerms(defaultBodyTerms));
 
   return (
     <>
