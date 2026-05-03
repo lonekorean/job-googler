@@ -1,5 +1,6 @@
 import addIcon from '../assets/icons/add.svg';
 import removeIcon from '../assets/icons/remove.svg';
+import { useLayoutEffect, useRef } from 'react';
 import '../styles/inputs/Terms.css';
 import type { Term } from '../types';
 
@@ -10,6 +11,15 @@ type TermsProps = {
 };
 
 export default function Terms({ title, terms, setTerms }: TermsProps) {
+  // for focusing new input after it's added
+  const focusNewId = useRef<string | null>(null);
+  useLayoutEffect(() => {
+    if (focusNewId.current) {
+      document.getElementById(focusNewId.current).focus();
+      focusNewId.current = null;
+    }
+  }, [terms]);
+
   function handleChange(id: string, value: string) {
     const newTerms = terms.map((term) => (term.id === id ? { ...term, value } : term));
     setTerms(newTerms);
@@ -21,8 +31,9 @@ export default function Terms({ title, terms, setTerms }: TermsProps) {
   }
 
   function handleAdd() {
-    const newTerms = [...terms, { id: crypto.randomUUID(), value: '' }];
-    setTerms(newTerms);
+    const newId = crypto.randomUUID();
+    focusNewId.current = newId;
+    setTerms([...terms, { id: newId, value: '' }]);
   }
 
   const fields = terms.map(({ id, value }) => (
