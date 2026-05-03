@@ -31,28 +31,8 @@ export default function Search() {
       <form className="Search__form">
         <TermsInput title="In Page Title" terms={titleTerms} setTerms={setTitleTerms} />
         <TermsInput title="In Page Body" terms={bodyTerms} setTerms={setBodyTerms} />
-        <OptionsInput title="On These Job Boards" options={jobBoards} setOptions={setJobBoards} />
-        <OptionsInput title="Within The Last" options={timeRanges} setOptions={setTimeRanges} />
-
-        <fieldset>
-          <legend>Within The Last:</legend>
-          <div className="Search__field-pair">
-            <input type="radio" id="within-hour" name="within" value="h" />
-            <label htmlFor="within-hour">Hour</label>
-          </div>
-          <div className="Search__field-pair">
-            <input type="radio" id="within-day" name="within" value="d" />
-            <label htmlFor="within-day">Day</label>
-          </div>
-          <div className="Search__field-pair">
-            <input type="radio" id="within-week" name="within" value="w" />
-            <label htmlFor="within-week">Week</label>
-          </div>
-          <div className="Search__field-pair">
-            <input type="radio" id="within-month" name="within" value="m" />
-            <label htmlFor="within-month">Month</label>
-          </div>
-        </fieldset>
+        <OptionsInput title="On These Job Boards" options={jobBoards} setOptions={setJobBoards} allowMultiple={true} />
+        <OptionsInput title="Within The Last" options={timeRanges} setOptions={setTimeRanges} allowMultiple={false} />
 
         <button type="submit" className="Search__submit">Open Google Search!</button>
       </form>
