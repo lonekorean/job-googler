@@ -23,8 +23,8 @@ export const jobBoards = [
 ];
 
 export const timeRanges = [
-  { name: 'Hour', value: 'h' },
+  { name: 'Hour', value: 'h', selected: false },
   { name: 'Day', value: 'd', selected: true },
-  { name: 'Week', value: 'w' },
-  { name: 'Month', value: 'm' }
+  { name: 'Week', value: 'w', selected: false },
+  { name: 'Month', value: 'm', selected: false }
 ];

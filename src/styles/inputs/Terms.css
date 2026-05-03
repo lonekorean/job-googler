@@ -1,4 +1,4 @@
-.MultiTerm__grid {
+.Terms__grid {
   --columns: 1; /* auto-fit wasn't sufficient */
 
   display: grid;
@@ -19,10 +19,10 @@
   }
 }
 
-.MultiTerm__field {
+.Terms__field {
   position: relative;
 
-  &:is(:hover, :focus-within) .MultiTerm__remove {
+  &:is(:hover, :focus-within) .Terms__remove {
     opacity: 1;
   }
   
@@ -37,7 +37,7 @@
   }
 }
 
-.MultiTerm__remove {
+.Terms__remove {
   position: absolute;
   top: 0;
   right: 0;
@@ -53,7 +53,7 @@
   }
 }
 
-.MultiTerm__add {
+.Terms__add {
   justify-self: flex-start;
   align-self: center;
   padding: 5px;

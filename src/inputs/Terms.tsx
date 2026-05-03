@@ -1,15 +1,15 @@
 import addIcon from '../assets/icons/add.svg';
 import removeIcon from '../assets/icons/remove.svg';
-import '../styles/inputs/MultiTerm.css';
+import '../styles/inputs/Terms.css';
 import type { Term } from '../types';
 
-type MultiTermProps = {
+type TermsProps = {
   title: string;
   terms: Term[];
   setTerms: (terms: Term[]) => void;
 };
 
-export default function MultiTerm({ title, terms, setTerms }: MultiTermProps) {
+export default function Terms({ title, terms, setTerms }: TermsProps) {
   function handleChange(id: string, value: string) {
     const newTerms = terms.map((term) => (term.id === id ? { ...term, value } : term));
     setTerms(newTerms);
@@ -26,9 +26,9 @@ export default function MultiTerm({ title, terms, setTerms }: MultiTermProps) {
   }
 
   const fields = terms.map(({ id, value }) => (
-    <div key={id} className="MultiTerm__field">
+    <div key={id} className="Terms__field">
       <input type="text" id={id} value={value} onChange={(e) => handleChange(id, e.target.value)} />
-      <button type="button" className="MultiTerm__remove" onClick={() => handleRemove(id)}>
+      <button type="button" className="Terms__remove" onClick={() => handleRemove(id)}>
         <img src={removeIcon} alt="remove" />
       </button>
     </div>
@@ -37,9 +37,9 @@ export default function MultiTerm({ title, terms, setTerms }: MultiTermProps) {
   return (
     <fieldset>
       <legend>{title}:</legend>
-      <div className="MultiTerm__grid">
+      <div className="Terms__grid">
         {fields}
-        <button type="button" className="MultiTerm__add" onClick={() => handleAdd()}>
+        <button type="button" className="Terms__add" onClick={() => handleAdd()}>
           <img src={addIcon} alt="add" />
         </button>
       </div>

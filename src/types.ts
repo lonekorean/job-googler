@@ -3,7 +3,8 @@ export type Term = {
   value: string;
 };
 
-export type Selection = {
+export type Option = {
+  id: string;
   name: string;
   value: string;
   selected: boolean;

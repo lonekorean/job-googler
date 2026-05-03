@@ -1,27 +1,38 @@
 import { useState } from 'react';
 import * as config from '../config';
-import MultiSelectInput from '../inputs/MultiSelect';
-import MultiTermInput from '../inputs/MultiTerm';
+import OptionsInput from '../inputs/Options';
+import TermsInput from '../inputs/Terms';
 import '../styles/pages/Search.css';
-import type { Selection, Term } from '../types';
+import type { Option, Term } from '../types';
 
-function loadMultiTerms(values: string[]): Term[] {
+function loadTerms(values: string[]): Term[] {
   return values.map((value) => ({ id: crypto.randomUUID(), value }));
 }
 
+function loadOptions(items: { name: string, value: string, selected: boolean }[]): Option[] {
+  return items.map((item) => ({
+    id: crypto.randomUUID(),
+    name: item.name,
+    value: item.value,
+    selected: item.selected ?? false
+  }));
+}
+
 export default function Search() {
-  const [titleTerms, setTitleTerms] = useState<Term[]>(() => loadMultiTerms(config.titleTerms));
-  const [bodyTerms, setBodyTerms] = useState<Term[]>(() => loadMultiTerms(config.bodyTerms));
-  const [jobBoards, setJobBoards] = useState<Selection[]>(() => config.jobBoards);
+  const [titleTerms, setTitleTerms] = useState<Term[]>(() => loadTerms(config.titleTerms));
+  const [bodyTerms, setBodyTerms] = useState<Term[]>(() => loadTerms(config.bodyTerms));
+  const [jobBoards, setJobBoards] = useState<Option[]>(() => loadOptions(config.jobBoards));
+  const [timeRanges, setTimeRanges] = useState<Option[]>(() => loadOptions(config.timeRanges));
 
   return (
     <>
       <h1>Search</h1>
 
       <form className="Search__form">
-        <MultiTermInput title="In Page Title" terms={titleTerms} setTerms={setTitleTerms} />
-        <MultiTermInput title="In Page Body" terms={bodyTerms} setTerms={setBodyTerms} />
-        <MultiSelectInput title="On These Job Boards" selections={jobBoards} setSelections={setJobBoards} />
+        <TermsInput title="In Page Title" terms={titleTerms} setTerms={setTitleTerms} />
+        <TermsInput title="In Page Body" terms={bodyTerms} setTerms={setBodyTerms} />
+        <OptionsInput title="On These Job Boards" options={jobBoards} setOptions={setJobBoards} />
+        <OptionsInput title="Within The Last" options={timeRanges} setOptions={setTimeRanges} />
 
         <fieldset>
           <legend>Within The Last:</legend>
