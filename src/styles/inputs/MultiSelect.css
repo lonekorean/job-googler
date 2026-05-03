@@ -1,5 +1,32 @@
-.MultiSelect__field-pair {
+.MultiSelect__grid {
+  margin: -5px;
+}
+
+.MultiSelect__field {
+  display: inline-block;
+  margin: 5px;
+
+  input {
+    /* cheap screen reader only styling */
+    position: absolute;
+    left: -100vw;
+  }
+
   label {
-    padding-left: 10px;
+    display: block;
+    padding: 5px 20px;
+    color: var(--color-primary);
+    border: 1px solid var(--color-primary);
+    border-radius: calc(infinity * 1px);
+    cursor: pointer;
+  }
+
+  &:has(input:checked) label {
+    color: var(--color-background);
+    background-color: var(--color-primary);
+  }
+
+  &:has(input:focus-visible) label {
+    outline: 2px solid var(--color-focus);
   }
 }

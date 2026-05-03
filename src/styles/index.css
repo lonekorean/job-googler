@@ -4,10 +4,15 @@
   --color-shade: #e9ecef;
   --color-dark: #495057;
   --color-primary: #c2255c;
+  --color-focus: #0c8599;
 }
 
 *, *::before, *::after {
   box-sizing: border-box;
+}
+
+*:focus {
+  outline: 2px solid var(--color-focus);
 }
 
 body {

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import * as config from '../config';
-import MultiTermInput from '../inputs/MultiTerm';
 import MultiSelectInput from '../inputs/MultiSelect';
+import MultiTermInput from '../inputs/MultiTerm';
 import '../styles/pages/Search.css';
 import type { Selection, Term } from '../types';
 

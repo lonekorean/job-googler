@@ -27,7 +27,7 @@ export default function MultiTerm({ title, terms, setTerms }: MultiTermProps) {
 
   const fields = terms.map(({ id, value }) => (
     <div key={id} className="MultiTerm__field">
-      <input type="text" value={value} onChange={(e) => handleChange(id, e.target.value)} />
+      <input type="text" id={id} value={value} onChange={(e) => handleChange(id, e.target.value)} />
       <button type="button" className="MultiTerm__remove" onClick={() => handleRemove(id)}>
         <img src={removeIcon} alt="remove" />
       </button>

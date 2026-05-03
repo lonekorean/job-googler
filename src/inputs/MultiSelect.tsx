@@ -13,17 +13,23 @@ export default function MultiTerm({ title, selections, setSelections }: MultiSel
     setSelections(newSelections);
   }
 
-  const fields = selections.map(({ name, value, selected }) => (
-    <div key={name} className="MultiSelect__field-pair">
-      <input type="checkbox" id={name} checked={selected} onChange={() => handleChange(name, !selected)} />
-      <label htmlFor={name}>{value}</label>
-    </div>
-  ));
+  const fields = selections.map(({ name, selected }) => {
+    const id = name.toLowerCase().replaceAll(/[^a-z]/g, '-');
+
+    return (
+      <div key={id} className="MultiSelect__field">
+        <input type="checkbox" id={id} checked={selected} onChange={() => handleChange(name, !selected)} />
+        <label htmlFor={id}>{name}</label>
+      </div>
+    );
+  });
 
   return (
     <fieldset>
       <legend>{title}:</legend>
-      {fields}
+      <div className="MultiSelect__grid">
+        {fields}
+      </div>
     </fieldset>
   );
 }
