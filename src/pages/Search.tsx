@@ -58,11 +58,13 @@ export default function Search() {
     const timeRangeValue = cleanOptions(timeRanges)[0];
     url.searchParams.append('tbs', `qdr:${timeRangeValue}`);
 
-    window.open(url.href, '_blank', 'noopener,noreferrer');
+    window.open(url.href, '_blank');
   }
 
   return (
     <>
+      <title>Job Googler - Search</title>
+
       <h1>Search</h1>
 
       <form className="Search__form" onSubmit={handleSubmit}>

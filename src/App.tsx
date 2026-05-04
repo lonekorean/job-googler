@@ -10,14 +10,14 @@ export default function App() {
         <nav>
           <ul>
             <li><NavLink to="/">Search</NavLink></li>
-            <li><NavLink to="/About">About</NavLink></li>
+            <li><NavLink to="/about">About</NavLink></li>
           </ul>
         </nav>
       </header>
       <main>
         <Routes>
           <Route path="/" element={<SearchPage />} />
-          <Route path="/About" element={<AboutPage />} />
+          <Route path="/about" element={<AboutPage />} />
         </Routes>
       </main>
     </div>
