@@ -41,12 +41,22 @@ export default function Search() {
   function handleSubmit(e: SubmitEvent) {
     e.preventDefault();
 
-    const titleTermValues = cleanTerms(titleTerms);
-    const bodyTermValues = cleanTerms(bodyTerms);
-    const jobBoardValues = cleanOptions(jobBoards);
-    const timeRangeValues = cleanOptions(timeRanges);
+    const url = new URL('https://www.google.com/search');
 
-    console.log(titleTermValues, bodyTermValues, jobBoardValues, timeRangeValues);
+    const titleTermClause = cleanTerms(titleTerms).map((value) => `intitle:"${value}"`).join(' OR ')
+    const bodyTermClause = cleanTerms(bodyTerms).map((value) => `"${value}"`).join(' OR ');
+    const jobBoardClause = cleanOptions(jobBoards).map((value) => `site:${value}`).join(' OR ')
+    url.searchParams.append('q',
+      [titleTermClause, bodyTermClause, jobBoardClause]
+        .filter((clause) => clause !== '')
+        .map((clause) => `(${clause})`)
+        .join(' AND ')
+    );
+
+    const timeRangeValue = cleanOptions(timeRanges)[0];
+    url.searchParams.append('tbs', `qdr:${timeRangeValue}`);
+
+    window.open(url.href, '_blank', 'noopener,noreferrer');
   }
 
   return (
