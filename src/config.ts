@@ -27,7 +27,8 @@ export const jobBoards = [
   { name: 'JazzHR', value: 'applytojob.com', selected: true },
   { name: 'Breezy HR', value: 'breezy.hr', selected: true },
   { name: 'ICIMS', value: 'icims.com', selected: true },
-  { name: 'Workable', value: 'apply.workable.com', selected: true }
+  { name: 'Workable', value: 'apply.workable.com', selected: true },
+  { name: 'Pinpoint', value: 'pinpointhq.com', selected: true }
 ];
 
 export const timeRanges = [

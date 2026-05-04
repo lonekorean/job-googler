@@ -32,5 +32,9 @@
       color: var(--color-background);
       background-color: var(--color-dark);
     }
+
+    &:not([aria-current]):is(:hover, :focus-within) {
+      background-color: var(--color-background);
+    }
   }  
 }
