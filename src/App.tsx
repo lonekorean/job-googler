@@ -6,8 +6,8 @@ import './styles/App.css';
 export default function App() {
   return (
     <div className="App__container">
-      <header>
-        <nav className="App__nav">
+      <header className="App__header">
+        <nav>
           <ul>
             <li><NavLink to="/">Search</NavLink></li>
             <li><NavLink to="/About">About</NavLink></li>

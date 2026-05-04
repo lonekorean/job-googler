@@ -4,7 +4,14 @@
   container-type: inline-size;
 }
 
-.App__nav {
+.App__header {
+  display: flex;
+  justify-content: center;
+
+  @media (min-width: 600px) {
+    justify-content: flex-end;
+  }
+
   ul {
     display: flex;
     gap: 10px;

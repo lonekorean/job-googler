@@ -6,16 +6,17 @@ import type { Term } from '../types';
 
 type TermsProps = {
   title: string;
+  description: string;
   terms: Term[];
   setTerms: (terms: Term[]) => void;
 };
 
-export default function Terms({ title, terms, setTerms }: TermsProps) {
+export default function Terms({ title, description, terms, setTerms }: TermsProps) {
   // for focusing new input after it's added
   const focusNewId = useRef<string | null>(null);
   useLayoutEffect(() => {
     if (focusNewId.current) {
-      document.getElementById(focusNewId.current).focus();
+      document.getElementById(focusNewId.current)?.focus();
       focusNewId.current = null;
     }
   }, [terms]);
@@ -48,6 +49,7 @@ export default function Terms({ title, terms, setTerms }: TermsProps) {
   return (
     <fieldset>
       <legend>{title}:</legend>
+      <p className="Terms__description">{description}</p>
       <div className="Terms__grid">
         {fields}
         <button type="button" className="Terms__add" onClick={() => handleAdd()}>

@@ -41,7 +41,7 @@ export default function Options({ title, options, setOptions, allowMultiple }: O
 
   return (
     <fieldset>
-      <legend>{title}:</legend>
+      <legend className="Options__title">{title}:</legend>
       <div className="Options__grid">
         {fields}
       </div>

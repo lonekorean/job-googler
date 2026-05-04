@@ -1,12 +1,20 @@
 export const titleTerms = [
   'frontend',
   'front-end',
-  'design engineer',
   'design technologist',
+  'design engineer',
   'ux engineer'
 ];
 
-export const bodyTerms = ['remote'];
+export const allTerms = [
+  'javascript',
+  'css'
+];
+
+export const anyTerms = [
+  'remote',
+  'work from home'
+];
 
 export const jobBoards = [
   { name: 'Greenhouse', value: 'job-boards.greenhouse.io', selected: true },
@@ -24,7 +32,7 @@ export const jobBoards = [
 
 export const timeRanges = [
   { name: 'Hour', value: 'h', selected: false },
-  { name: 'Day', value: 'd', selected: true },
-  { name: 'Week', value: 'w', selected: false },
+  { name: 'Day', value: 'd', selected: false },
+  { name: 'Week', value: 'w', selected: true },
   { name: 'Month', value: 'm', selected: false }
 ];

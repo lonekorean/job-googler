@@ -4,6 +4,7 @@ import OptionsInput from '../inputs/Options';
 import TermsInput from '../inputs/Terms';
 import '../styles/pages/Search.css';
 import type { Option, Term } from '../types';
+import arrowUpRightIcon from '../assets/icons/arrow-up-right.svg';
 
 function loadTerms(values: string[]): Term[] {
   return values.map((value) => ({ id: crypto.randomUUID(), value }));
@@ -34,7 +35,8 @@ function cleanOptions(options: Option[]): string[] {
 
 export default function Search() {
   const [titleTerms, setTitleTerms] = useState<Term[]>(() => loadTerms(config.titleTerms));
-  const [bodyTerms, setBodyTerms] = useState<Term[]>(() => loadTerms(config.bodyTerms));
+  const [allTerms, setAllTerms] = useState<Term[]>(() => loadTerms(config.allTerms));
+  const [anyTerms, setAnyTerms] = useState<Term[]>(() => loadTerms(config.anyTerms));
   const [jobBoards, setJobBoards] = useState<Option[]>(() => loadOptions(config.jobBoards));
   const [timeRanges, setTimeRanges] = useState<Option[]>(() => loadOptions(config.timeRanges));
 
@@ -44,13 +46,13 @@ export default function Search() {
     const url = new URL('https://www.google.com/search');
 
     const titleTermClause = cleanTerms(titleTerms).map((value) => `intitle:"${value}"`).join(' OR ')
-    const bodyTermClause = cleanTerms(bodyTerms).map((value) => `"${value}"`).join(' OR ');
+    const allTermClause = cleanTerms(allTerms).map((value) => `"${value}"`).join(' AND ');
+    const anyTermClause = cleanTerms(anyTerms).map((value) => `"${value}"`).join(' OR ');
     const jobBoardClause = cleanOptions(jobBoards).map((value) => `site:${value}`).join(' OR ')
-    url.searchParams.append('q',
-      [titleTermClause, bodyTermClause, jobBoardClause]
-        .filter((clause) => clause !== '')
-        .map((clause) => `(${clause})`)
-        .join(' AND ')
+    url.searchParams.append('q', [titleTermClause, allTermClause, anyTermClause, jobBoardClause]
+      .filter((clause) => clause !== '')
+      .map((clause) => `(${clause})`)
+      .join(' AND ')
     );
 
     const timeRangeValue = cleanOptions(timeRanges)[0];
@@ -64,12 +66,41 @@ export default function Search() {
       <h1>Search</h1>
 
       <form className="Search__form" onSubmit={handleSubmit}>
-        <TermsInput title="In Page Title" terms={titleTerms} setTerms={setTitleTerms} />
-        <TermsInput title="In Page Body" terms={bodyTerms} setTerms={setBodyTerms} />
-        <OptionsInput title="On These Job Boards" options={jobBoards} setOptions={setJobBoards} allowMultiple={true} />
-        <OptionsInput title="Within The Last" options={timeRanges} setOptions={setTimeRanges} allowMultiple={false} />
+        <TermsInput
+          title="Match ANY of these in title"
+          description="Require at least one of these terms in the page title, which is usually the job title."
+          terms={titleTerms}
+          setTerms={setTitleTerms}
+        />
+        <TermsInput
+          title="Match ALL of these anywhere"
+          description="Require all of these terms somewhere in the page."
+          terms={allTerms}
+          setTerms={setAllTerms}
+        />
+        <TermsInput
+          title="Match ANY of these anywhere"
+          description="Require at least one of these terms somewhere in the page."
+          terms={anyTerms}
+          setTerms={setAnyTerms}
+        />
+        <OptionsInput
+          title="On These Job Boards"
+          options={jobBoards}
+          setOptions={setJobBoards}
+          allowMultiple={true}
+        />
+        <OptionsInput
+          title="Within The Last"
+          options={timeRanges}
+          setOptions={setTimeRanges}
+          allowMultiple={false}
+        />
 
-        <button type="submit" className="Search__submit">Open Google Search!</button>
+        <button type="submit" className="Search__submit">
+          Search
+          <img src={arrowUpRightIcon} alt="" />
+        </button>
       </form>
     </>
   );
