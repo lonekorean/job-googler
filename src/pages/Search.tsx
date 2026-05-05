@@ -1,64 +1,116 @@
-import { useState, type SubmitEvent } from 'react';
-import * as config from '../config';
+import { useMemo, useState, type SubmitEvent } from 'react';
+import defaults from '../defaults.json';
+import arrowUpRightIcon from '../icons/arrow-up-right.svg';
 import OptionsInput from '../inputs/Options';
 import TermsInput from '../inputs/Terms';
 import '../styles/pages/Search.css';
-import type { Option, Term } from '../types';
-import arrowUpRightIcon from '../assets/icons/arrow-up-right.svg';
+import type { Option, SearchData, SearchState, Term } from '../types';
 
-function loadTerms(values: string[]): Term[] {
+const STORAGE_KEY = 'searchData';
+
+function loadInitialState(): SearchState {
+  let data: SearchData = defaults;
+
+  try {
+    const stringifiedData = localStorage.getItem(STORAGE_KEY);
+    if (stringifiedData) {
+      const parsed: unknown = JSON.parse(stringifiedData);
+      if (parsed && typeof parsed === 'object') {
+        data = parsed as SearchData;
+      }
+    }
+  } catch {
+    // keep defaults
+  }
+
+  return {
+    titleTerms: prepareTerms(data.titleTerms),
+    allTerms: prepareTerms(data.allTerms),
+    anyTerms: prepareTerms(data.anyTerms),
+    jobBoards: prepareOptions(data.jobBoards),
+    timeRanges: prepareOptions(data.timeRanges)
+  };
+}
+
+function prepareTerms(values: string[]): Term[] {
   return values.map((value) => ({ id: crypto.randomUUID(), value }));
 }
 
-function loadOptions(items: { name: string, value: string, selected: boolean }[]): Option[] {
+function prepareOptions(items: { name: string, value: string, selected: boolean }[]): Option[] {
   return items.map((item) => ({
     id: crypto.randomUUID(),
     name: item.name,
     value: item.value,
-    selected: item.selected ?? false
+    selected: item.selected
   }));
 }
 
-function cleanTerms(terms: Term[]): string[] {
-  const values = terms
-    .filter((term) => term.value !== '')
-    .map((term) => term.value.trim())
-  return [...(new Set(values).values())]; /* deduped */
+function getCleanTerms(terms: Term[]): Term[] {
+  const cleanArray = terms
+    .map((term) => ({ ...term, value: term.value.trim() }))
+    .filter((term) => term.value !== '');
+
+  const uniqueMap = new Map(cleanArray.map((term) => [term.value, term]));
+
+  return [...uniqueMap.values()];
 }
 
-function cleanOptions(options: Option[]): string[] {
-  const values = options
-    .filter((value) => value.selected)
-    .map((option) => option.value)
-  return values;
+function getSelectedOptions(options: Option[]): Option[] {
+  return options.filter((value) => value.selected);
 }
 
 export default function Search() {
-  const [titleTerms, setTitleTerms] = useState<Term[]>(() => loadTerms(config.titleTerms));
-  const [allTerms, setAllTerms] = useState<Term[]>(() => loadTerms(config.allTerms));
-  const [anyTerms, setAnyTerms] = useState<Term[]>(() => loadTerms(config.anyTerms));
-  const [jobBoards, setJobBoards] = useState<Option[]>(() => loadOptions(config.jobBoards));
-  const [timeRanges, setTimeRanges] = useState<Option[]>(() => loadOptions(config.timeRanges));
+  const initialState = useMemo(loadInitialState, []);
+
+  const [titleTerms, setTitleTerms] = useState<Term[]>(initialState.titleTerms);
+  const [allTerms, setAllTerms] = useState<Term[]>(initialState.allTerms);
+  const [anyTerms, setAnyTerms] = useState<Term[]>(initialState.anyTerms);
+  const [jobBoards, setJobBoards] = useState<Option[]>(initialState.jobBoards);
+  const [timeRanges, setTimeRanges] = useState<Option[]>(initialState.timeRanges);
 
   function handleSubmit(e: SubmitEvent) {
     e.preventDefault();
 
-    const url = new URL('https://www.google.com/search');
+    const titleTermsCleaned = getCleanTerms(titleTerms);
+    const titleTermClause = titleTermsCleaned.map((term) => `intitle:"${term.value}"`).join(' OR ');
 
-    const titleTermClause = cleanTerms(titleTerms).map((value) => `intitle:"${value}"`).join(' OR ')
-    const allTermClause = cleanTerms(allTerms).map((value) => `"${value}"`).join(' AND ');
-    const anyTermClause = cleanTerms(anyTerms).map((value) => `"${value}"`).join(' OR ');
-    const jobBoardClause = cleanOptions(jobBoards).map((value) => `site:${value}`).join(' OR ')
+    const allTermsCleaned = getCleanTerms(allTerms);
+    const allTermClause = allTermsCleaned.map((term) => `"${term.value}"`).join(' AND ');
+
+    const anyTermsCleaned = getCleanTerms(anyTerms);
+    const anyTermClause = anyTermsCleaned.map((term) => `"${term.value}"`).join(' OR ');
+
+    const selectedJobBoards = getSelectedOptions(jobBoards);
+    const jobBoardClause = selectedJobBoards.map((option) => `site:${option.value}`).join(' OR ');
+
+    const selectedTimeRange = getSelectedOptions(timeRanges);
+    const timeRangeValue = selectedTimeRange[0]?.value; // singular
+
+    const url = new URL('https://www.google.com/search');
     url.searchParams.append('q', [titleTermClause, allTermClause, anyTermClause, jobBoardClause]
       .filter((clause) => clause !== '')
       .map((clause) => `(${clause})`)
       .join(' AND ')
     );
 
-    const timeRangeValue = cleanOptions(timeRanges)[0];
-    url.searchParams.append('tbs', `qdr:${timeRangeValue}`);
+    if (timeRangeValue) {
+      url.searchParams.append('tbs', `qdr:${timeRangeValue}`);
+    }
 
     window.open(url.href, '_blank');
+
+    // set terms in case any changes resulted from cleaning
+    setTitleTerms(titleTermsCleaned);
+    setAllTerms(allTermsCleaned);
+    setAnyTerms(anyTermsCleaned);
+
+    localStorage.setItem(STORAGE_KEY, JSON.stringify({
+      'titleTerms': titleTermsCleaned.map((term) => term.value),
+      'allTerms': allTermsCleaned.map((term) => term.value),
+      'anyTerms': anyTermsCleaned.map((term) => term.value),
+      'jobBoards': jobBoards.map(({ id, ...rest }) => rest),
+      'timeRanges': timeRanges.map(({ id, ...rest }) => rest)
+    }));
   }
 
   return (

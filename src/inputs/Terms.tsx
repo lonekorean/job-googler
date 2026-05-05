@@ -1,6 +1,6 @@
 import { useLayoutEffect, useRef } from 'react';
-import addIcon from '../assets/icons/add.svg';
-import removeIcon from '../assets/icons/remove.svg';
+import addIcon from '../icons/add.svg';
+import removeIcon from '../icons/remove.svg';
 import '../styles/inputs/Terms.css';
 import type { Term } from '../types';
 import { blockEnterSubmit } from '../utils';
