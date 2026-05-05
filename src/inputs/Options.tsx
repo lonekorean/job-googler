@@ -1,6 +1,6 @@
-import type { KeyboardEvent } from 'react';
 import '../styles/inputs/Options.css';
 import type { Option } from '../types';
+import { blockEnterSubmit } from '../utils';
 
 type OptionsProps = {
   title: string;
@@ -22,12 +22,6 @@ export default function Options({ title, options, setOptions, allowMultiple }: O
     setOptions(newOptions);
   }
 
-  function handleKeyDown(e: KeyboardEvent<HTMLInputElement>) {
-    if (e.key === 'Enter') {
-      e.preventDefault();
-    }
-  }
-
   const inputType = allowMultiple ? 'checkbox' : 'radio';
   const inputName = title.toLowerCase().replaceAll(/[^a-z]/g, '-');
   const fields = options.map(({ id, name, value, selected }) => {
@@ -40,7 +34,7 @@ export default function Options({ title, options, setOptions, allowMultiple }: O
           value={value}
           checked={selected}
           onChange={(e) => handleChange(id, e.target.checked)}
-          onKeyDown={handleKeyDown}
+          onKeyDown={blockEnterSubmit}
         />
         <label htmlFor={id}>{name}</label>
       </div>

@@ -1,8 +1,9 @@
-import { useLayoutEffect, useRef, type KeyboardEvent } from 'react';
+import { useLayoutEffect, useRef } from 'react';
 import addIcon from '../assets/icons/add.svg';
 import removeIcon from '../assets/icons/remove.svg';
 import '../styles/inputs/Terms.css';
 import type { Term } from '../types';
+import { blockEnterSubmit } from '../utils';
 
 type TermsProps = {
   title: string;
@@ -37,12 +38,6 @@ export default function Terms({ title, description, terms, setTerms }: TermsProp
     setTerms([...terms, { id: newId, value: '' }]);
   }
 
-  function handleKeyDown(e: KeyboardEvent<HTMLInputElement>) {
-    if (e.key === 'Enter') {
-      e.preventDefault();
-    }
-  }
-
   const fields = terms.map(({ id, value }) => (
     <div key={id} className="Terms__field">
       <input
@@ -50,7 +45,7 @@ export default function Terms({ title, description, terms, setTerms }: TermsProp
         id={id}
         value={value}
         onChange={(e) => handleChange(id, e.target.value)}
-        onKeyDown={handleKeyDown}
+        onKeyDown={blockEnterSubmit}
       />
       <button type="button" className="Terms__remove" onClick={() => handleRemove(id)}>
         <img src={removeIcon} alt="remove" />
