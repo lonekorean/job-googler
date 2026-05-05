@@ -71,23 +71,24 @@ export default function Search() {
   function handleSubmit(e: SubmitEvent) {
     e.preventDefault();
 
-    const titleTermsCleaned = getCleanTerms(titleTerms);
-    const titleTermClause = titleTermsCleaned.map((term) => `intitle:"${term.value}"`).join(' OR ');
+    const cleanTitleTerms = getCleanTerms(titleTerms);
+    const titleTermsClause = cleanTitleTerms.map((term) => `intitle:"${term.value}"`).join(' OR ');
 
-    const allTermsCleaned = getCleanTerms(allTerms);
-    const allTermClause = allTermsCleaned.map((term) => `"${term.value}"`).join(' AND ');
+    const cleanAllTerms = getCleanTerms(allTerms);
+    const allTermsClause = cleanAllTerms.map((term) => `"${term.value}"`).join(' AND ');
 
-    const anyTermsCleaned = getCleanTerms(anyTerms);
-    const anyTermClause = anyTermsCleaned.map((term) => `"${term.value}"`).join(' OR ');
+    const cleanAnyTerms = getCleanTerms(anyTerms);
+    const anyTermsClause = cleanAnyTerms.map((term) => `"${term.value}"`).join(' OR ');
 
     const selectedJobBoards = getSelectedOptions(jobBoards);
-    const jobBoardClause = selectedJobBoards.map((option) => `site:${option.value}`).join(' OR ');
+    const jobBoardsClause = selectedJobBoards.map((option) => `site:${option.value}`).join(' OR ');
 
     const selectedTimeRange = getSelectedOptions(timeRanges);
     const timeRangeValue = selectedTimeRange[0]?.value; // singular
 
     const url = new URL('https://www.google.com/search');
-    url.searchParams.append('q', [titleTermClause, allTermClause, anyTermClause, jobBoardClause]
+
+    url.searchParams.append('q', [titleTermsClause, allTermsClause, anyTermsClause, jobBoardsClause]
       .filter((clause) => clause !== '')
       .map((clause) => `(${clause})`)
       .join(' AND ')
@@ -100,14 +101,14 @@ export default function Search() {
     window.open(url.href, '_blank');
 
     // set terms in case any changes resulted from cleaning
-    setTitleTerms(titleTermsCleaned);
-    setAllTerms(allTermsCleaned);
-    setAnyTerms(anyTermsCleaned);
+    setTitleTerms(cleanTitleTerms);
+    setAllTerms(cleanAllTerms);
+    setAnyTerms(cleanAnyTerms);
 
     localStorage.setItem(STORAGE_KEY, JSON.stringify({
-      'titleTerms': titleTermsCleaned.map((term) => term.value),
-      'allTerms': allTermsCleaned.map((term) => term.value),
-      'anyTerms': anyTermsCleaned.map((term) => term.value),
+      'titleTerms': cleanTitleTerms.map((term) => term.value),
+      'allTerms': cleanAllTerms.map((term) => term.value),
+      'anyTerms': cleanAnyTerms.map((term) => term.value),
       'jobBoards': jobBoards.map(({ id, ...rest }) => rest),
       'timeRanges': timeRanges.map(({ id, ...rest }) => rest)
     }));
