@@ -18,7 +18,7 @@
 body {
   margin: 0;
   padding: 40px 20px 80px;
-  font: 1rem/1.4 sans-serif;
+  font: 1rem/1.4 'Roboto', sans-serif;
 }
 
 a {
