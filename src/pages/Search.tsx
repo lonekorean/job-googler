@@ -6,7 +6,7 @@ import TermsInput from '../inputs/Terms';
 import '../styles/pages/Search.css';
 import type { Option, SearchData, SearchState, Term } from '../types';
 
-const STORAGE_KEY = 'searchData';
+const STORAGE_KEY = 'searchData.v1';
 
 function loadInitialState(): SearchState {
   let data: SearchData = defaults;
