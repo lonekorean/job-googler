@@ -29,8 +29,15 @@
 .Terms__field {
   position: relative;
 
-  &:is(:hover, :focus-within) .Terms__remove {
+  &:focus-within .Terms__remove {
     opacity: 1;
+  }
+
+  /* hover media query to prevent double-tap issue on iOS */
+  @media (hover: hover) {
+    &:hover .Terms__remove {
+      opacity: 1;
+    }
   }
   
   input[type="text"] {
