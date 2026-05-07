@@ -1,25 +1,41 @@
 :root {
-  --color-foreground: #212529;
-  --color-background: #f8f9fa;
-  --color-shade: #e9ecef;
-  --color-dark: #495057;
-  --color-primary: #c2255c;
-  --color-focus: #0c8599;
-  --color-input: #fff;
+  --color-foreground: #252a30;
+  --color-background: #e7ebf0;
+  --color-light: #f4f7fb;
+  --color-shade: #d2d9e2;
+  --color-dark: #46505d;
+  --color-primary: #b73a67;
+  --color-focus: #397082;
+
+  --shadow: 0 0 10px 0 var(--color-shade);
 }
 
 *, *::before, *::after {
   box-sizing: border-box;
 }
 
+*::selection {
+  color: var(--color-light);
+  background-color: var(--color-focus);
+}
+
 *:focus {
   outline: 2px solid var(--color-focus);
+  outline-offset: 1px;
 }
 
 body {
+  min-height: 100vh;
   margin: 0;
   padding: 40px 20px 80px;
+  color: var(--color-foreground);
+  background-color: var(--color-background);
+  background: linear-gradient(to bottom, var(--color-background), var(--color-light));
   font: 1rem/1.4 'Roboto', sans-serif;
+
+  @media (width >= 600px) {
+    padding-inline: 30px;
+  }
 }
 
 a {
@@ -37,11 +53,8 @@ button {
   cursor: pointer;
 }
 
-input[type="text"] {
-  background-color: var(--color-input);
-}
-
 h1 {
-  margin-block: 20px 40px;
+  margin-block: 40px;
   font-size: 3rem;
+  line-height: 1;
 }

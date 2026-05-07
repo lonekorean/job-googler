@@ -3,6 +3,7 @@
     margin: 0 0 60px;
     padding: 0;
     border: none;
+    container-type: inline-size; /* for terms container query */
   }
 
   legend {
@@ -13,14 +14,23 @@
   }
 }
 
+.Search__inputs {
+  padding-left: 20px;
+  border-left: 5px solid var(--color-shade);
+
+  @media (width >= 600px) {
+    padding-left: 30px;
+  }
+}
+
 .Search__submit {
   display: flex;
   align-items: center;
   gap: 10px;
-  margin-top: 80px;
   padding: 10px 40px;
   border-radius: calc(infinity * 1px);
   font-size: 1.25rem;
+  box-shadow: var(--shadow);
 
   img {
     height: 1.25rem;
