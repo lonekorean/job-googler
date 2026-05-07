@@ -121,36 +121,38 @@ export default function Search() {
       <h1>Search</h1>
 
       <form className="Search__form" onSubmit={handleSubmit}>
-        <TermsInput
-          title="Match ANY of these in title"
-          description="Require at least one of these terms in the page title, which is usually the job title."
-          terms={titleTerms}
-          setTerms={setTitleTerms}
-        />
-        <TermsInput
-          title="Match ALL of these anywhere"
-          description="Require all of these terms somewhere in the page."
-          terms={allTerms}
-          setTerms={setAllTerms}
-        />
-        <TermsInput
-          title="Match ANY of these anywhere"
-          description="Require at least one of these terms somewhere in the page."
-          terms={anyTerms}
-          setTerms={setAnyTerms}
-        />
-        <OptionsInput
-          title="On These Job Boards"
-          options={jobBoards}
-          setOptions={setJobBoards}
-          allowMultiple={true}
-        />
-        <OptionsInput
-          title="Within The Last"
-          options={timeRanges}
-          setOptions={setTimeRanges}
-          allowMultiple={false}
-        />
+        <div className="Search__inputs">
+          <TermsInput
+            title="Match ANY of these in title"
+            description="Require at least one of these terms in the page title, which is usually the job title."
+            terms={titleTerms}
+            setTerms={setTitleTerms}
+          />
+          <TermsInput
+            title="Match ALL of these anywhere"
+            description="Require all of these terms somewhere in the page."
+            terms={allTerms}
+            setTerms={setAllTerms}
+          />
+          <TermsInput
+            title="Match ANY of these anywhere"
+            description="Require at least one of these terms somewhere in the page."
+            terms={anyTerms}
+            setTerms={setAnyTerms}
+          />
+          <OptionsInput
+            title="On These Job Boards"
+            options={jobBoards}
+            setOptions={setJobBoards}
+            allowMultiple={true}
+          />
+          <OptionsInput
+            title="Within The Last"
+            options={timeRanges}
+            setOptions={setTimeRanges}
+            allowMultiple={false}
+          />
+        </div>
 
         <button type="submit" className="Search__submit">
           Search

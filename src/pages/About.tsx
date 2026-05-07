@@ -17,7 +17,7 @@ export default function About() {
           You can also just bookmark the Google search results directly.
         </p>
         <p>
-          Feel free to check out my other stuff at <a href="https://codersblock.com/" target="_blank">Coder's Block</a>.
+          This web app is <a href="https://github.com/lonekorean/job-googler" target="_blank">open source</a>. Feel free to check out my other stuff at <a href="https://codersblock.com/" target="_blank">Coder's Block</a>.
         </p>
         <p>
           ❤️ Will
