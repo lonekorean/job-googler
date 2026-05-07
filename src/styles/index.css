@@ -5,6 +5,7 @@
   --color-dark: #495057;
   --color-primary: #c2255c;
   --color-focus: #0c8599;
+  --color-input: #fff;
 }
 
 *, *::before, *::after {
@@ -34,6 +35,10 @@ button {
   font-size: inherit;
   font-family: inherit;
   cursor: pointer;
+}
+
+input[type="text"] {
+  background-color: var(--color-input);
 }
 
 h1 {
