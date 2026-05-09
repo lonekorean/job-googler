@@ -55,6 +55,10 @@ button {
 
 h1 {
   margin-block: 40px;
-  font-size: 3rem;
+  font-size: 2rem;
   line-height: 1;
+
+  @media (width >= 600px) {
+    font-size: 2.75rem;
+  }
 }

@@ -3,9 +3,8 @@ import '../styles/pages/About.css';
 export default function About() {
   return (
     <>
-      <title>Job Googler - About</title>
-
-      <h1>About</h1>
+      <title>Job Googler / About</title>
+      <h1>Job Googler / About</h1>
 
       <div className="About__prose">
         <p>

@@ -116,9 +116,8 @@ export default function Search() {
 
   return (
     <>
-      <title>Job Googler - Search</title>
-
-      <h1>Search</h1>
+      <title>Job Googler / Search</title>
+      <h1>Job Googler / Search</h1>
 
       <form className="Search__form" onSubmit={handleSubmit}>
         <div className="Search__inputs">
