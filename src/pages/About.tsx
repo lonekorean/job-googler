@@ -1,12 +1,10 @@
-import '../styles/pages/About.css';
-
 export default function About() {
   return (
     <>
       <title>Job Googler / About</title>
       <h1>Job Googler / About</h1>
 
-      <div className="About__prose">
+      <div className="Common__prose">
         <p>
           <strong>Job Googler</strong> is a simple web app to help you craft Google searches for job postings.
           Sometimes you can find "hidden" job postings this way, or at least find them before they're flooded with applications. 🙃
